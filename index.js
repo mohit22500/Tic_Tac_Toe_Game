@@ -5,6 +5,7 @@ var msgContainer=document.querySelector(".msg-container");
 var msg=document.querySelector("#msg");
 
 var turnO=true;   //playerX, playerO
+var count=0;
 
 //2-D array
 
@@ -32,13 +33,27 @@ boxes.forEach((box) => {
             turnO=true;
         }
         box.disabled=true;
-        checkWinner();
+        count++;
+
+        var isWinner= checkWinner();
+
+        if(count==9 && !isWinner){
+            gameDraw();
+        }
 
   
     });
 });
+
+const gameDraw =() => {
+    msg.innerText=`Game was a Draw.`;
+    msgContainer.classList.remove("hide");
+    disableBoxes();
+};
+
 const resetGame = () => {
     turnO =true;
+    count=0;
     enableBoxes();
     msgContainer.classList.add("hide")
 }
